@@ -30,4 +30,7 @@ services:
       MYSQL_USER: 'wanadev'
       MYSQL_PASSWORD: 'secret'
     volumes:
-      - ./tmp/db:/var/lib/mysql
+      - db:/var/lib/mysql
+
+volumes:
+  db: {}
