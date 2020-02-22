@@ -1,12 +1,19 @@
 <h1>WANAFOOOT MAGGLE</h1>
 <?php
-use App\Route\Security;
-
     switch ($_SERVER["REQUEST_URI"]) {
+        case "/home":
+            include 'src/home.php';
+            break;
         case "/login":
-            Security::login();
+            include "src/Login/login.php";
+            break;
+        case "/login/register":
+            include "src/Login/register.php";
+            break;
+        case "/login/connection":
+            include "src/Login/connection.php";
             break;
         default:
-            echo "Not found";
+            echo "404 NOT FOUND";
     }
 ?>

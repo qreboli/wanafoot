@@ -1,0 +1,1 @@
+// Compilated assets with public
