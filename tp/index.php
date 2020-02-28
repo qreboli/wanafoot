@@ -1,17 +1,23 @@
 <?php
 require_once 'class/Message.php';
 require_once 'class/GuestBook.php';
+
 $errors = null;
+$success = false;
+$guestBook = new GuestBook(__DIR__ . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'messages');
+
 if (isset($_POST['username'], $_POST['message'])) {
     $message = new Message($_POST['username'], $_POST['message']);
     if ($message->isValide()) {
         $successFields = $message->getSuccess();
-        $guestBook = new GuestBook(__DIR__ . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'messages');
         $guestBook->addMessage($message);
+        $success = true;
+        $_POST = [];
     } else {
         $errors = $message->getErrors();
     }
 }
+$messages = $guestBook->getMessages();
 $title = "Wanafoot";
 require 'elements/header.php';
 ?>
@@ -22,7 +28,12 @@ require 'elements/header.php';
     <div class="alert alert-danger">
         Formulaire invalide
     </div>
-<?php endif ?>
+    <?php endif ?>
+    <?php if ($success): ?>
+        <div class="alert alert-success">
+            Merci pour le message ;) !
+        </div>
+    <?php endif ?>
 
     <form action="" method="post">
         <div class="form-group">
@@ -43,8 +54,17 @@ require 'elements/header.php';
                 <div class="valid-feedback"><?= $successFields['message'] ?></div>
             <?php endif ?>
         </div>
-        <button class="btn btn-primary">Send</button>
+        <button class="btn btn-primary">Lâcher son message</button>
     </form>
+
+    <?php if(!empty($messages)): ?>
+    <h1 class="mt-4">Vos Superbes Messages</h1>
+
+
+    <?php foreach ($messages as $message): ?>
+        <?= $message->toHTML(); ?>
+    <?php endforeach?>
+    <?php endif ?>
 </div>
 <?php
 require 'elements/footer.php';

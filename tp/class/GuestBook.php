@@ -19,7 +19,17 @@ class GuestBook {
 
     public function addMessage(Message $message) :void
     {
-        file_put_contents($this->file, $message, FILE_APPEND);
+        file_put_contents($this->file, $message->toJSON() . PHP_EOL, FILE_APPEND);
+    }
+
+    public function getMessages()
+    {
+        $content = trim(file_get_contents($this->file));
+        $lines = explode(PHP_EOL, $content);
+        foreach ($lines as $line) {
+            $messages[] = Message::fromJSON($line);
+        }
+        return(array_reverse($messages));
     }
 
 }
