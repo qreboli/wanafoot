@@ -7,9 +7,9 @@ class GuestBook {
 
     public function __construct(string $file)
     {
-        $directory = '/tp';
+        $directory = dirname($file);
         if (!is_dir($directory)) {
-            mkdir($directory, 755, true);
+            mkdir($directory, 0755, true);
         }
         if (file_exists($file)) {
             touch($file);
