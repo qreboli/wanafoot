@@ -4,8 +4,11 @@
         case "/home":
             include 'src/home.php';
             break;
-        case "/tp":
-            include 'tp/index.php';
+        case "/wanaFootBook":
+            include 'wanaFootBook/index.php';
+            break;
+        case "/wanaFootBlog":
+            include 'wanaFootBlog/index.php';
             break;
         case "/login":
             include "src/Login/login.php";
