@@ -14,15 +14,25 @@ try
 
 
     // sql to create table
-    $sql = "CREATE TABLE user (
+    $sqlUser = "CREATE TABLE user (
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
     name VARCHAR(30) NOT NULL,
     email VARCHAR(50),
     password VARCHAR(255),
-    reg_date TIMESTAMP
+    creation_date TIMESTAMP
+    )";
+
+    $sqlMessage = "CREATE TABLE message (
+    id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
+    id_user INT(6) NOT NULL,
+    content VARCHAR(255),
+    password VARCHAR(255),
+    creation_date TIMESTAMP,
+    edition_date DATE 
     )";
     // use exec() because no results are returned
-    $connection->exec($sql);
+    $connection->exec($sqlUser);
+    $connection->exec($sqlMessage);
     echo "Table users created successfully";
 
 }
